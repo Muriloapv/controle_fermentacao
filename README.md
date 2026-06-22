@@ -15,11 +15,11 @@ create table cerveja_estilo (
 );
 
 create table tanque (
-   tanque_id          serial        not null,
-   tanque_descricao   varchar(200)  not null,
-   tanque_capacidade  numeric(5, 2) not null,
+   tanque_id          serial         not null,
+   tanque_descricao   varchar(200)   not null,
+   tanque_capacidade  int            not null,
    tanque_observacao  text,
-   tanque_inclusao    timestamp     not null default clock_timestamp(),
+   tanque_inclusao    timestamp      not null default clock_timestamp(),
    tanque_exclusao    timestamp
    
    constraint tanque_pkey primary key ( tanque_id )
@@ -38,12 +38,13 @@ create table cerveja (
 );
 
 create table lote(
-   lote_id          serial       not null,
+   lote_id          serial        not null,
    lote_descricao   varchar(200)
-   tanque_id        int          not null,   
-   cerveja_id       int          not null
+   tanque_id        int           not null,   
+   cerveja_id       int           not null
+   lote_quantidade  numeric(10,2) not null
    lote_observacao  text,
-   lote_inicio      timestamp    not null 
+   lote_inicio      timestamp     not null 
    lote_finalizacao timestamp
    
    constraint lote_pkey          primary key ( lote_id    )
@@ -55,7 +56,6 @@ create table lote(
 create table cerveja_parametros (
    parametro_id             serial          not null,
    cerveja_id               int             not null,
-   parametro_descricao      varchar(200),
    parametro_temperaturaMin numeric( 5, 2 ) not null,
    parametro_temperaturaMax numeric( 5, 2 ) not null,
    parametro_phMin          numeric( 5, 3 ) not null,
