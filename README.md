@@ -1,5 +1,8 @@
-# controle_fermentacao
+# Controle de Fermentação
 
+## Modelagem do Banco de Dados
+
+```sql   
 Modelagem banco de dados relacional:
 create table cerveja_estilo (
    cervejaE_id         serial       not null,
@@ -81,3 +84,4 @@ create table fermentacao_historico(
    constraint fermentacao_historico_pk primary key ( historico_id )
    constraint fermentacao_lote_id_fk   foreign key ( lote_id      ) references lote( lote_id )
 )
+```
