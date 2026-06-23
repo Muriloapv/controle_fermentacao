@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("arBrain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+40ff9d2ddd9df1fd658fdcd7ca2ee252beea245f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fde425aa33d6e8b50b863191dcc3ea43b3a27b7b")]
 [assembly: System.Reflection.AssemblyProductAttribute("arBrain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("arBrain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
