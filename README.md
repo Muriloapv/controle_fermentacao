@@ -1,5 +1,9 @@
 # Controle de Fermentação
 
+
+dotNet -> 10.0.301
+
+
 ## Modelagem do Banco de Dados
 
 ```sql   
