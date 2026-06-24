@@ -1,0 +1,43 @@
+# .NET build outputs
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
+project.lock.json
+packages/
+*.nuget.props
+*.nuget.targets
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.swp
+*.rsuser
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs e dados locais
+*.log
+*.db
+*.sqlite
+*.db-shm
+*.db-wal
+
+# Secrets e configurações locais
+appsettings.Local.json
+*.pfx
+*.p12
+.env
+.env.*
+
+# Publicação
+publish/
+**/publish/
