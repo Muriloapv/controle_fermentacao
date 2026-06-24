@@ -20,8 +20,6 @@ public class CervejaEstilo
     [JsonIgnore]
     public DateTime? CervejaEstiloExclusao { get; set; }
 
-    // public ICollection<Cerveja> Cervejas { get; set; } = new List<Cerveja>();
-
     public ICollection<Cerveja> Cervejas { get; set; } = new List<Cerveja>();
 
 }
