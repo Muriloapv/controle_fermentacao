@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 
 var connectionString = builder.Configuration.GetConnectionString("AppDbConnectionString");
-builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
 
 var app = builder.Build();
