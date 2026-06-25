@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using arBrain.Models.Lote;
 using Microsoft.EntityFrameworkCore;
 
 namespace arBrain.Models.FermentacaoHistorico;
@@ -9,6 +10,7 @@ public class FermentacaoHistorico
     public int HistoricoId { get; set; }
 
     public int LoteId { get; set; }
+    public Lote.Lote? Lote { get; set; }
 
     [Precision(5, 3)]
     public decimal HistoricoPh { get; set; }

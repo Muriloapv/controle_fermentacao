@@ -1,9 +1,10 @@
 using arBrain.Data;
 using arBrain.DTOs.Cerveja;
+using arBrain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace arBrain.Models;
+namespace arBrain.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -21,9 +22,9 @@ public class CervejasController : ControllerBase
     {
         var cerveja = new Cerveja
         {
-            CervejaNome = dto.CervejaNome,
+            CervejaNome       = dto.CervejaNome,
             CervejaObservacao = dto.CervejaObservacao,
-            CervejaEstiloId = dto.CervejaEstiloId
+            CervejaEstiloId   = dto.CervejaEstiloId
         };
 
         _appDbContext.Cervejas.Add(cerveja);
@@ -34,37 +35,36 @@ public class CervejasController : ControllerBase
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Cerveja>>> GetCervejas()
-    {   //precisa ter await pois terá um leve delay entre request ao banco e o retorno
+    {
         var listCervejas = await _appDbContext.Cervejas.ToListAsync();
         return Ok(listCervejas);
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Cerveja>> GetCervejaById(int id)
-    {   //precisa ter await pois terá um leve delay entre request ao banco e o retorno
+    {
         var cerveja = await _appDbContext.Cervejas.FindAsync(id);
 
         if (cerveja == null)
-        {
             return NotFound("Cerveja não encontrada! Verifique o ID informado");
-        }
 
         return Ok(cerveja);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateCerveja(int id, [FromBody] Cerveja cervejaAtualizada)
+    public async Task<IActionResult> UpdateCerveja(int id, [FromBody] CervejaDto dto)
     {
         var cervejaAtual = await _appDbContext.Cervejas.FindAsync(id);
 
         if (cervejaAtual == null)
-        {
             return NotFound("Cerveja não encontrada! Verifique o ID informado");
-        }
 
-        _appDbContext.Entry(cervejaAtual).CurrentValues.SetValues(cervejaAtualizada);
+        cervejaAtual.CervejaNome       = dto.CervejaNome;
+        cervejaAtual.CervejaObservacao = dto.CervejaObservacao;
+        cervejaAtual.CervejaEstiloId   = dto.CervejaEstiloId;
+
         await _appDbContext.SaveChangesAsync();
-        return StatusCode(201, cervejaAtual);
+        return Ok(cervejaAtual);
     }
 
     [HttpDelete("{id}")]
@@ -73,15 +73,11 @@ public class CervejasController : ControllerBase
         var cerveja = await _appDbContext.Cervejas.FindAsync(id);
 
         if (cerveja == null)
-        {
             return NotFound("Cerveja não encontrada! Verifique o ID informado");
-        }
 
         cerveja.CervejaExclusao = DateTime.UtcNow;
 
         await _appDbContext.SaveChangesAsync();
-        return Ok("Cerveja deletada com Sucesso!" + cerveja);
+        return Ok(new { message = "Cerveja deletada com sucesso!", data = cerveja });
     }
-
-
 }

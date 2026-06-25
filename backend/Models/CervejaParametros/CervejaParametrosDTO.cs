@@ -4,8 +4,6 @@ namespace arBrain.DTOs.CervejaParametro;
 
 public class CervejaParametroDto
 {
-   public int CervejaParametroId { get; set; }
-
    [Range(1, int.MaxValue, ErrorMessage = "O campo CervejaId deve ser maior que zero.")]
    public int CervejaId { get; set; }
 

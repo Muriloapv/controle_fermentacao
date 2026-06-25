@@ -18,8 +18,10 @@ public class Cerveja
 
     public CervejaEstilo CervejaEstilo { get; set; } = null!;
 
+    public ICollection<Lote.Lote> Lotes { get; set; } = [];
+
     public DateTime CervejaInclusao { get; set; } = DateTime.UtcNow;
 
-    // [JsonIgnore]
+    [JsonIgnore]
     public DateTime? CervejaExclusao { get; set; }
 }

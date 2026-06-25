@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using arBrain.Models.Lote;
 using Microsoft.EntityFrameworkCore;
 
 namespace arBrain.Models.Tanque;
@@ -19,4 +20,6 @@ public class Tanque
     public DateTime TanqueInclusao { get; set; } = DateTime.UtcNow;
 
     public DateTime? TanqueExclusao { get; set; }
+
+    public ICollection<Lote.Lote> Lotes { get; set; } = new List<Lote.Lote>();
 }

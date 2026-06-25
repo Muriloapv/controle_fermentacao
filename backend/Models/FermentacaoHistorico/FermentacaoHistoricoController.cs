@@ -1,5 +1,3 @@
-using System.Data.SqlTypes;
-using System.Xml;
 using arBrain.Data;
 using arBrain.DTOs.FermentacaoHistorico;
 using arBrain.Models.FermentacaoHistorico;
@@ -24,43 +22,38 @@ public class FermentacaoHistoricoController : ControllerBase
     {
         var historico = new FermentacaoHistorico
         {
-            HistoricoPh = dto.HistoricoPh,
-            HistoricoExtrato = dto.HistoricoExtrato,
+            LoteId               = dto.LoteId,
+            HistoricoPh          = dto.HistoricoPh,
+            HistoricoExtrato     = dto.HistoricoExtrato,
             HistoricoTemperatura = dto.HistoricoTemperatura,
             HistoricoResponsavel = dto.HistoricoResponsavel,
-            HistoricoObservacao = dto.HistoricoObservacao,
-            HistoricoDataColeta = dto.HistoricoDataColeta
+            HistoricoObservacao  = dto.HistoricoObservacao,
+            HistoricoDataColeta  = dto.HistoricoDataColeta
         };
 
         _appDbContext.FermentacaoHistoricos.Add(historico);
         await _appDbContext.SaveChangesAsync();
 
-        return Created( "Historico registrado com sucesso!", historico);
+        return Created("Historico registrado com sucesso!", historico);
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<FermentacaoHistorico>>> GetHistoricos()
     {
         var listHistorico = await _appDbContext.FermentacaoHistoricos.ToListAsync();
-        return Ok( listHistorico );
+        return Ok(listHistorico);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<FermentacaoHistorico>> GetHistoricoById(int id )
+    public async Task<ActionResult<FermentacaoHistorico>> GetHistoricoById(int id)
     {
         var historico = await _appDbContext.FermentacaoHistoricos.FindAsync(id);
 
-        if ( historico == null)
-        {
+        if (historico == null)
             return NotFound("Historico não encontrado! Verifique o ID informado");
-        }
 
-        return Ok( historico );
+        return Ok(historico);
     }
 
-
-    //O historico não deve poder ser alterado nem deletado, visando a confiabilidade das informações
-    // [HttpPut("`{id}")] || [[HttpDelete("{id}")]]
-
-
+    // O historico não pode ser alterado nem deletado para garantir a confiabilidade das informações
 }

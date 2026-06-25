@@ -22,14 +22,14 @@ public class CervejaParametroController : ControllerBase
     {
         var parametro = new CervejaParametro
         {
-            CervejaId = dto.CervejaId,
+            CervejaId                      = dto.CervejaId,
             CervejaParametroTemperaturaMin = dto.CervejaParametroTemperaturaMin,
             CervejaParametroTemperaturaMax = dto.CervejaParametroTemperaturaMax,
-            CervejaParametroPhMin = dto.CervejaParametroPhMin,
-            CervejaParametroPhMax = dto.CervejaParametroPhMax,
-            CervejaParametroExtratoMin = dto.CervejaParametroExtratoMin,
-            CervejaParametroExtratoMax = dto.CervejaParametroExtratoMax,
-            CervejaParametroObservacao = dto.CervejaParametroObservacao
+            CervejaParametroPhMin          = dto.CervejaParametroPhMin,
+            CervejaParametroPhMax          = dto.CervejaParametroPhMax,
+            CervejaParametroExtratoMin     = dto.CervejaParametroExtratoMin,
+            CervejaParametroExtratoMax     = dto.CervejaParametroExtratoMax,
+            CervejaParametroObservacao     = dto.CervejaParametroObservacao
         };
 
         _appDbContext.CervejaParametros.Add(parametro);
@@ -40,7 +40,7 @@ public class CervejaParametroController : ControllerBase
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CervejaParametro>>> GetParametros()
-    { //precisa ter await pois terá um leve delay entre request ao banco e o retorno
+    {
         var listParametros = await _appDbContext.CervejaParametros.ToListAsync();
         return Ok(listParametros);
     }
@@ -51,27 +51,31 @@ public class CervejaParametroController : ControllerBase
         var parametro = await _appDbContext.CervejaParametros.FindAsync(id);
 
         if (parametro == null)
-        {
             return NotFound("Parâmetro da cerveja não encontrado! Verifique o ID informado.");
-        }
 
         return Ok(parametro);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateParametro(int id, [FromBody] CervejaParametro parametroAtt)
+    public async Task<IActionResult> UpdateParametro(int id, [FromBody] CervejaParametroDto dto)
     {
         var parametroAtual = await _appDbContext.CervejaParametros.FindAsync(id);
 
         if (parametroAtual == null)
-        {
             return NotFound("Parâmetro da cerveja não encontrado! Verifique o ID informado.");
-        }
 
-        _appDbContext.Entry(parametroAtual).CurrentValues.SetValues(parametroAtt);
+        parametroAtual.CervejaId                      = dto.CervejaId;
+        parametroAtual.CervejaParametroTemperaturaMin = dto.CervejaParametroTemperaturaMin;
+        parametroAtual.CervejaParametroTemperaturaMax = dto.CervejaParametroTemperaturaMax;
+        parametroAtual.CervejaParametroPhMin          = dto.CervejaParametroPhMin;
+        parametroAtual.CervejaParametroPhMax          = dto.CervejaParametroPhMax;
+        parametroAtual.CervejaParametroExtratoMin     = dto.CervejaParametroExtratoMin;
+        parametroAtual.CervejaParametroExtratoMax     = dto.CervejaParametroExtratoMax;
+        parametroAtual.CervejaParametroObservacao     = dto.CervejaParametroObservacao;
+
         await _appDbContext.SaveChangesAsync();
 
-        return StatusCode(201, parametroAtual);
+        return Ok(parametroAtual);
     }
 
     [HttpDelete("{id}")]
@@ -80,14 +84,12 @@ public class CervejaParametroController : ControllerBase
         var parametro = await _appDbContext.CervejaParametros.FindAsync(id);
 
         if (parametro == null)
-        {
             return NotFound("Parâmetro da cerveja não encontrado! Verifique o ID informado.");
-        }
 
         parametro.CervejaParametroExclusao = DateTime.UtcNow;
 
         await _appDbContext.SaveChangesAsync();
 
-        return Ok("Parâmetro da cerveja deletado com sucesso!" + parametro);
+        return Ok(new { message = "Parâmetro da cerveja deletado com sucesso!", data = parametro });
     }
 }

@@ -1,30 +1,27 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
 
-namespace arBrain.Models.Lote;
+namespace arBrain.DTOs.Lote;
 
-public class Lote
+public class LoteDto
 {
-    public int LoteId { get; set; }
-
+    [Required]
     [MaxLength(200)]
     public string LoteDescricao { get; set; } = string.Empty;
 
-    [Precision(10, 2)]
+    [Required]
     public decimal LoteQuantidade { get; set; }
 
     [MaxLength(2000)]
     public string? LoteObservacao { get; set; }
 
+    [Required]
     public int TanqueId { get; set; }
-    public Tanque.Tanque Tanque { get; set; } = null!;
 
+    [Required]
     public int CervejaId { get; set; }
-    public Cerveja Cerveja { get; set; } = null!;
 
+    [Required]
     public DateTime LoteInicio { get; set; }
 
     public DateTime? LoteFinalizacao { get; set; }
-
-    public DateTime? LoteExclusao { get; set; }
 }

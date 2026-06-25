@@ -1,4 +1,3 @@
-using System.Text;
 using arBrain.Data;
 using arBrain.DTOs.CervejaEstilo;
 using arBrain.Models;
@@ -23,49 +22,47 @@ public class CervejaEstiloController : ControllerBase
     {
         var estilo = new CervejaEstilo
         {
-            CervejaEstiloDescricao = dto.CervejaEstiloDescricao,
+            CervejaEstiloDescricao  = dto.CervejaEstiloDescricao,
             CervejaEstiloObservacao = dto.CervejaEstiloObservacao
         };
 
         _appDbContext.CervejaEstilos.Add(estilo);
         await _appDbContext.SaveChangesAsync();
 
-        return Created("Estilo de Cerveja criada com sucesso", estilo);
+        return Created( "Estilo de Cerveja criado com sucesso", estilo );
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CervejaEstilo>>> GetEstilos()
-    {   //precisa ter await pois terá um leve delay entre request ao banco e o retorno
+    {
         var listEstilos = await _appDbContext.CervejaEstilos.ToListAsync();
         return Ok(listEstilos);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<CervejaEstilo>> GetEstilosById(int id)
-    {   //precisa ter await pois terá um leve delay entre request ao banco e o retorno
-        var cerveja = await _appDbContext.CervejaEstilos.FindAsync(id);
+    public async Task<ActionResult<CervejaEstilo>> GetEstiloById(int id)
+    {
+        var estilo = await _appDbContext.CervejaEstilos.FindAsync(id);
 
-        if (cerveja == null)
-        {
-            return NotFound("Estilo de Cerveja não encontrada! Verifique o ID informado");
-        }
+        if (estilo == null)
+            return NotFound("Estilo de Cerveja não encontrado! Verifique o ID informado");
 
-        return Ok(cerveja);
+        return Ok(estilo);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateEstilo(int id, [FromBody] CervejaEstilo estiloAtt)
+    public async Task<IActionResult> UpdateEstilo(int id, [FromBody] CervejaEstiloDto dto)
     {
         var estiloAtual = await _appDbContext.CervejaEstilos.FindAsync(id);
 
         if (estiloAtual == null)
-        {
-            return NotFound("Estilo de Cerveja não encontrada! Verifique o ID informado");
-        }
+            return NotFound("Estilo de Cerveja não encontrado! Verifique o ID informado");
 
-        _appDbContext.Entry(estiloAtual).CurrentValues.SetValues(estiloAtt);
+        estiloAtual.CervejaEstiloDescricao  = dto.CervejaEstiloDescricao;
+        estiloAtual.CervejaEstiloObservacao = dto.CervejaEstiloObservacao;
+
         await _appDbContext.SaveChangesAsync();
-        return StatusCode(201, estiloAtual);
+        return Ok(estiloAtual);
     }
 
     [HttpDelete("{id}")]
@@ -74,14 +71,11 @@ public class CervejaEstiloController : ControllerBase
         var estilo = await _appDbContext.CervejaEstilos.FindAsync(id);
 
         if (estilo == null)
-        {
-            return NotFound("Estilo de Cerveja não encontrada! Verifique o ID informado");
-        }
+            return NotFound("Estilo de Cerveja não encontrado! Verifique o ID informado");
 
         estilo.CervejaEstiloExclusao = DateTime.UtcNow;
 
         await _appDbContext.SaveChangesAsync();
-        return Ok("Cerveja deletada com Sucesso!" + estilo);
+        return Ok(new { message = "Estilo de Cerveja deletado com sucesso!", data = estilo });
     }
-
 }

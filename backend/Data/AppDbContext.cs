@@ -12,11 +12,13 @@ public class AppDbContext : DbContext
 
     public AppDbContext(DbContextOptions options) : base(options) { }
 
-    //Função responsavel por fazer que as consultas não retorner registros _exclusao !=
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Cerveja>()
-            .HasQueryFilter(c => c.CervejaExclusao == null);
+        modelBuilder.Entity<Cerveja>().HasQueryFilter         ( c => c.CervejaExclusao          == null);
+        modelBuilder.Entity<CervejaEstilo>().HasQueryFilter   ( e => e.CervejaEstiloExclusao    == null);
+        modelBuilder.Entity<CervejaParametro>().HasQueryFilter( p => p.CervejaParametroExclusao == null);
+        modelBuilder.Entity<Lote>().HasQueryFilter            ( l => l.LoteExclusao             == null);
+        modelBuilder.Entity<Tanque>().HasQueryFilter          ( t => t.TanqueExclusao           == null);
     }
 
     public DbSet<Cerveja> Cervejas { get; set; }
