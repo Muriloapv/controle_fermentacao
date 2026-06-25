@@ -1,23 +1,10 @@
-import {
-  Drawer,
-  Box,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Typography
-} from "@mui/material";
-
+import { Drawer, Box, List, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ScienceIcon from "@mui/icons-material/Science";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
 import CategoryIcon from "@mui/icons-material/Category";
 import StorageIcon from "@mui/icons-material/Storage";
-
-import {
-  useNavigate,
-  useLocation
-} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const drawerWidth = 260;
 
@@ -30,32 +17,43 @@ export default function Sidebar() {
     {
       titulo: "Dashboard",
       rota: "/",
-      icone: <DashboardIcon />
+      icone: <img src="/home.svg" alt="Dashboard" width={24} height={20} />
+
     },
     {
       titulo: "Lotes",
       rota: "/lotes",
-      icone: <ScienceIcon />
+      icone: <img src="/lote.svg" alt="Lote" width={24} height={20}/>
     },
     {
       titulo: "Cervejas",
       rota: "/cervejas",
-      icone: <LocalBarIcon />
+      icone: <img src="/lupos.svg" alt="Lupos" width={24} height={20}/>
     },
     {
       titulo: "Estilos",
       rota: "/estilos",
-      icone: <CategoryIcon />
+      icone: <img src="/lupos.svg" alt="Lupos" width={24} height={20}/>
     },
     {
       titulo: "Tanques",
       rota: "/tanques",
-      icone: <StorageIcon />
+      icone: <img src="/tanque.svg" alt="Tanque" width={24} height={20}/>
+    },
+    {
+      titulo: "Paramêtros",
+      rota: "/parametro",
+      icone: <img src="parametros.svg" alt="" width={24} height={20}/>
+    },
+    {
+      titulo: "Histórico",
+      rota: "/historico",
+      icone: <img src="historico.svg" alt="Histórico" width={24} height={20}/>
     }
+    
   ];
 
   return (
-
     <Drawer
       variant="permanent" 
       sx={{

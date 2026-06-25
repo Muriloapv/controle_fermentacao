@@ -11,6 +11,8 @@ import LotesPage from "../pages/LotesPage";
 import CervejaPage from "../pages/CervejaPage";
 import EstiloPage from "../pages/EstiloPage";
 import TanquePage from "../pages/TanquePage";
+import HistoricoPage from "../pages/Historico";
+import ParametrosPage from "../pages/Parametros";
 
 export default function AppRoutes() {
 
@@ -26,6 +28,8 @@ export default function AppRoutes() {
           <Route path="cervejas" element={<CervejaPage />} />
           <Route path="estilos" element={<EstiloPage />}/>
           <Route path="tanques" element={<TanquePage />}/>
+          <Route path="parametro" element={<ParametrosPage/>}/>
+          <Route path="historico" element={<HistoricoPage/>}/>
 
         </Route>
 

@@ -3,7 +3,7 @@ export const colors = {
 
   sidebar: "#063B52",
 
-  textPrimary: "#E8E8E8",
+  textPrimary: "rgb(0, 0, 0)",
 
   textSecondary: "#ABABCD",
 
