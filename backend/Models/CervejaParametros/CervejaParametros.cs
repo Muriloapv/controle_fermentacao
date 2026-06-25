@@ -5,9 +5,12 @@ namespace arBrain.Models.CervejaParametros;
 
 public class CervejaParametro
 {
+   [Key]
    public int CervejaParametroId { get; set; }
 
    public int CervejaId { get; set; }
+
+   public Cerveja Cerveja { get; set; } = null!;
 
    [Precision(5, 2)]
    public decimal CervejaParametroTemperaturaMin { get; set; }

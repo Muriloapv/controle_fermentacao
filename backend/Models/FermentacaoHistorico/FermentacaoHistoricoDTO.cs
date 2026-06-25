@@ -1,29 +1,29 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
 
-namespace arBrain.Models.FermentacaoHistorico;
+namespace arBrain.DTOs.FermentacaoHistorico;
 
-public class FermentacaoHistorico
+public class FermentacaoHistoricoDto
 {
-    [Key]
-    public int HistoricoId { get; set; }
 
+    [Required]
     public int LoteId { get; set; }
 
-    [Precision(5, 3)]
+    [Required]
     public decimal HistoricoPh { get; set; }
 
-    [Precision(5, 2)]
+    [Required]
     public decimal HistoricoTemperatura { get; set; }
 
-    [Precision(5, 2)]
+    [Required]
     public decimal HistoricoExtrato { get; set; }
 
     [MaxLength(2000)]
     public string? HistoricoObservacao { get; set; }
 
+    [Required]
     [MaxLength(200)]
     public string HistoricoResponsavel { get; set; } = string.Empty;
 
+    [Required]
     public DateTime HistoricoDataColeta { get; set; }
 }
