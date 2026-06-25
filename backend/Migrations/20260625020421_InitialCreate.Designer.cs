@@ -12,7 +12,7 @@ using arBrain.Data;
 namespace arBrain.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260625013557_InitialCreate")]
+    [Migration("20260625020421_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -37,10 +37,10 @@ namespace arBrain.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime?>("CervejaExclusao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("CervejaInclusao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("CervejaNome")
                         .IsRequired()
@@ -72,10 +72,10 @@ namespace arBrain.Migrations
                         .HasColumnType("character varying(200)");
 
                     b.Property<DateTime?>("CervejaEstiloExclusao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("CervejaEstiloInclusao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("CervejaEstiloObservacao")
                         .HasMaxLength(2000)
@@ -98,7 +98,7 @@ namespace arBrain.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime?>("CervejaParametroExclusao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<decimal>("CervejaParametroExtratoMax")
                         .HasPrecision(5, 2)
@@ -109,7 +109,7 @@ namespace arBrain.Migrations
                         .HasColumnType("numeric(5,2)");
 
                     b.Property<DateTime>("CervejaParametroInclusao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("CervejaParametroObservacao")
                         .HasMaxLength(2000)
@@ -147,7 +147,7 @@ namespace arBrain.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("HistoricoId"));
 
                     b.Property<DateTime>("HistoricoDataColeta")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<decimal>("HistoricoExtrato")
                         .HasPrecision(5, 2)
@@ -197,13 +197,13 @@ namespace arBrain.Migrations
                         .HasColumnType("character varying(200)");
 
                     b.Property<DateTime?>("LoteExclusao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime?>("LoteFinalizacao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("LoteInicio")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("LoteObservacao")
                         .HasMaxLength(2000)
@@ -243,10 +243,10 @@ namespace arBrain.Migrations
                         .HasColumnType("character varying(200)");
 
                     b.Property<DateTime?>("TanqueExclusao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("TanqueInclusao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("TanqueObservacao")
                         .HasMaxLength(2000)

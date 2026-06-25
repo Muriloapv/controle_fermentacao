@@ -20,8 +20,8 @@ namespace arBrain.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CervejaEstiloDescricao = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     CervejaEstiloObservacao = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true),
-                    CervejaEstiloInclusao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CervejaEstiloExclusao = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    CervejaEstiloInclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CervejaEstiloExclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -37,8 +37,8 @@ namespace arBrain.Migrations
                     TanqueDescricao = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     TanqueCapacidade = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: false),
                     TanqueObservacao = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true),
-                    TanqueInclusao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    TanqueExclusao = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    TanqueInclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    TanqueExclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -54,8 +54,8 @@ namespace arBrain.Migrations
                     CervejaNome = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     CervejaObservacao = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true),
                     CervejaEstiloId = table.Column<int>(type: "integer", nullable: false),
-                    CervejaInclusao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CervejaExclusao = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    CervejaInclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CervejaExclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,8 +82,8 @@ namespace arBrain.Migrations
                     CervejaParametroExtratoMin = table.Column<decimal>(type: "numeric(5,2)", precision: 5, scale: 2, nullable: false),
                     CervejaParametroExtratoMax = table.Column<decimal>(type: "numeric(5,2)", precision: 5, scale: 2, nullable: false),
                     CervejaParametroObservacao = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true),
-                    CervejaParametroInclusao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CervejaParametroExclusao = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    CervejaParametroInclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CervejaParametroExclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -107,9 +107,9 @@ namespace arBrain.Migrations
                     LoteObservacao = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true),
                     TanqueId = table.Column<int>(type: "integer", nullable: false),
                     CervejaId = table.Column<int>(type: "integer", nullable: false),
-                    LoteInicio = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    LoteFinalizacao = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LoteExclusao = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    LoteInicio = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    LoteFinalizacao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LoteExclusao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -140,7 +140,7 @@ namespace arBrain.Migrations
                     HistoricoExtrato = table.Column<decimal>(type: "numeric(5,2)", precision: 5, scale: 2, nullable: false),
                     HistoricoObservacao = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true),
                     HistoricoResponsavel = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    HistoricoDataColeta = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    HistoricoDataColeta = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
