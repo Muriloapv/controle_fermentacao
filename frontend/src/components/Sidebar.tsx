@@ -28,7 +28,7 @@ export default function Sidebar() {
     {
       titulo: "Cervejas",
       rota: "/cervejas",
-      icone: <img src="/lupos.svg" alt="Lupos" width={24} height={20}/>
+      icone: <img src="/cerveja.svg" alt="Lupos" width={24} height={20}/>
     },
     {
       titulo: "Estilos",
@@ -83,8 +83,8 @@ export default function Sidebar() {
             ARBRAIN
           </Typography>
 
-          <Typography sx={{ fontSize: "0.75rem", letterSpacing: 1 }}>
-            FERMENTAÇÃO
+          <Typography sx={{ fontSize: "0.50rem", letterSpacing: 0 }}>
+            CONTROLE DE FERMENTAÇÃO
           </Typography>
 
         </Box>

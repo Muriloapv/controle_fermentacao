@@ -3,7 +3,7 @@ import { colors } from "./colors";
 
 const theme = createTheme({
    palette: {
-      mode: "dark",
+      mode: "light",
 
       primary: {
          main: colors.sidebar
@@ -11,7 +11,7 @@ const theme = createTheme({
 
       background: {
          default: colors.background,
-         paper: colors.sidebar
+         paper: "#FFFFFF"
       },
 
       text: {
