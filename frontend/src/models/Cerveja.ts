@@ -1,7 +1,7 @@
 export interface Cerveja {
-  cerveja_id        : number;
-  cerveja_nome      : string;
-  cervejaEstilo_id  : number;
-  cerveja_observacao: string | null;
-  cerveja_inclusao  : string;
+  cervejaId        : number;
+  cervejaNome      : string;
+  cervejaEstiloId  : number;
+  cervejaObservacao: string | null;
+  cervejaInclusao  : string;
 }

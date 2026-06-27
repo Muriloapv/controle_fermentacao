@@ -11,7 +11,7 @@ import LotesPage from "../pages/LotesPage";
 import CervejaPage from "../pages/CervejaPage";
 import EstiloPage from "../pages/EstiloPage";
 import TanquePage from "../pages/TanquePage";
-import HistoricoPage from "../pages/Historico";
+import HistoricoPage from "../pages/HistoricoPage";
 import ParametrosPage from "../pages/Parametros";
 
 export default function AppRoutes() {

@@ -35,7 +35,7 @@ public class CervejaParametroController : ControllerBase
         _appDbContext.CervejaParametros.Add(parametro);
         await _appDbContext.SaveChangesAsync();
 
-        return Created("Parâmetro da cerveja criado com sucesso", parametro);
+        return Created("Parametro da cerveja criado com sucesso", parametro);
     }
 
     [HttpGet]

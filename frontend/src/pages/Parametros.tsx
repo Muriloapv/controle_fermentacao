@@ -7,47 +7,47 @@ import type { CervejaParametros } from "../models/CervejaParametros";
 
 const columns: GridColDef[] = [
   {
-    field: "parametro_id",
+    field: "cervejaParametroId",
     headerName: "ID",
     width: 50
   },
   {
-    field: "cerveja_id",
+    field: "cervejaId",
     headerName: "Cerveja ID",
     flex: 1
   },
   {
-    field: "parametro_temperatura_min",
+    field: "cervejaParametroTemperaturaMin",
     headerName: "Temperatura mínima",
     flex: 1
   },
   {
-    field: "parametro_temperatura_max",
+    field: "cervejaParametroTemperaturaMax",
     headerName: "Temperatura máxima",
     flex: 1
   },
   {
-    field: "parametro_ph_min",
+    field: "cervejaParametroPhMin",
     headerName: "Ph mínimo",
     flex: 1
   },
   {
-    field: "parametro_ph_max",
+    field: "cervejaParametroPhMax",
     headerName: "Ph maximo",
     flex: 1
   },
   {
-    field: "parametro_extrato_min",
+    field: "cervejaParametroExtratoMin",
     headerName: "Extrato minimo",
     flex: 1
   },
   {
-    field: "parametro_extrato_max",
+    field: "cervejaParametroExtratoMax",
     headerName: "Extrato maximo",
     flex: 1
   },
   {
-    field: "parametro_observacao",
+    field: "cervejaParametroObservacao",
     headerName: "Observação",
     flex: 1
   }
@@ -108,6 +108,7 @@ export default function ParametrosPage() {
           columns={columns}
           rows={rows}
           loading={loading}
+          getRowId={(row) => row.cervejaParametroId}
           onEdit={editar}
           onDelete={excluir}
         />

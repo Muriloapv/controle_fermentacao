@@ -7,22 +7,22 @@ import type { Cerveja } from "../models/Cerveja";
 
 const columns: GridColDef[] = [
   {
-    field: "cerveja_id",
+    field: "cervejaId",
     headerName: "ID",
     width: 100
   },
   {
-    field: "cervejaEstilo_id",
+    field: "cervejaEstiloId",
     headerName: "Estilo ID",
     width: 100
   },
   {
-    field: "cerveja_nome",
+    field: "cervejaNome",
     headerName: "Descrição",
     flex: 1
   },
   {
-    field: "cerveja_observacao",
+    field: "cervejaObservacao",
     headerName: "Observação",
     flex: 1
   }
@@ -42,7 +42,7 @@ export default function CervejaPage() {
       setLoading(true);
       
       const response = await axios.get<Cerveja[]>(
-         "http://localhost:5298/api/cervejas" 
+         "http://localhost:5298/api/Cervejas" 
         );
 
       setRows(response.data);
@@ -59,7 +59,7 @@ export default function CervejaPage() {
 
   function excluir(row: Cerveja) {
 
-    if (confirm(`Deseja excluir ${row.cerveja_nome}?`)) {
+    if (confirm(`Deseja excluir ${row.cervejaNome}?`)) {
       console.log("Excluir:", row);
     }
   }
@@ -83,6 +83,7 @@ export default function CervejaPage() {
           columns={columns}
           rows={rows}
           loading={loading}
+          getRowId={(row) => row.cervejaId }
           onEdit={editar}
           onDelete={excluir}
         />

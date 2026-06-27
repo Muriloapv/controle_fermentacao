@@ -1,84 +1,80 @@
-import type { Lote } from "../models/Lote";
 import type { GridColDef } from "@mui/x-data-grid";
 import AppDataGrid from "../components/DataGrid";
 import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import type { FermentacaoHistorico } from "../models/FermentacaoHistorico";
 
 const columns: GridColDef[] = [
   {
-    field: "loteId",
+    field: "historicoId",
     headerName: "ID",
     width: 100
   },
   {
-    field: "loteDescricao",
-    headerName: "Descrição",
+    field: "loteId",
+    headerName: "Lote ID",
+    width: 100
+  },
+  {
+    field: "historicoPh",
+    headerName: "Ph",
     flex: 1
   },
   {
-    field: "loteQuantidade",
-    headerName: "Quantidade(LT)",
+    field: "historicoTemperatura",
+    headerName: "Temperatura",
     flex: 1
   },
   {
-    field: "loteObservacao",
+    field: "historicoExtrato",
+    headerName: "Extrato",
+    flex: 1
+  },
+  {
+    field: "historicoResponsavel",
+    headerName: "Responsavel",
+    flex: 1
+  },
+  {
+    field: "historicoObservacao",
     headerName: "Observação",
-    flex: 1
-  },
-  {
-    field: "tanqueId",
-    headerName: "Tanque ID",
-    flex: 1
-  },
-  {
-    field: "cervejaId",
-    headerName: "Cerveja ID",
-    flex: 1
-  },
-  {
-    field: "loteInicio",
-    headerName: "Inicio",
-    flex: 1
-  },
-  {
-    field: "loteFinalizacao",
-    headerName: "Finalização",
     flex: 1
   }
 
 ];
-export default function LotesPage() {
-  const [rows, setRows] = useState<Lote[]>([]);
+
+export default function HistoricoPage() {
+  const [rows, setRows] = useState<FermentacaoHistorico[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    carregarLotes();
+    carregarHistorico();
   }, []);
 
-  async function carregarLotes() {
+  async function carregarHistorico() {
     try {
       setLoading(true);
       
-      const response = await axios.get<Lote[]>(
-         "http://localhost:5298/api/lote" 
+      const response = await axios.get<FermentacaoHistorico[]>(
+         "http://localhost:5298/api/FermentacaoHistorico"
         );
 
       setRows(response.data);
     } catch (error) {
-      console.error("Erro ao carregar lotes:", error);
+      console.error("Erro ao carregar historico de fermentação:", error);
     } finally {
       setLoading(false);
     }
   }
 
-  function editar(row: Lote) {
+  function editar(row: FermentacaoHistorico) {
     console.log("Editar:", row);
   }
 
-  function excluir(row: Lote) {
+  function excluir(row: FermentacaoHistorico) {
 
-    if (confirm(`Deseja excluir ${row.loteDescricao}?`)) {
+    if (confirm(`Deseja excluir ${row.historicoId}?`)) {
       console.log("Excluir:", row);
     }
   }
@@ -87,12 +83,12 @@ export default function LotesPage() {
     <>
       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2, }}> 
         <Typography sx={{ fontWeight: 700, fontSize: "1.5rem", lineHeight: 1 }}>
-          Lotes
+          Historico de fermentação
         </Typography>
               
         <Box sx={{ display: "flex", gap: 1 }}>
           <Button variant="contained" sx={{ backgroundColor: "#FFC524", "&:hover": { backgroundColor: "#e6b020" }, color: "#000" }}>
-            Adicionar lote
+            Adicionar registro de fermentação
           </Button>
         </Box>
       </Box>
@@ -102,11 +98,11 @@ export default function LotesPage() {
           columns={columns}
           rows={rows}
           loading={loading}
-          getRowId={(row) => row.loteId}
+          getRowId={(row) => row.historicoId}
           onEdit={editar}
           onDelete={excluir}
         />
       </Box>
     </>
-  );  
+  );
 }

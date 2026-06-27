@@ -123,9 +123,7 @@ export default function Sidebar() {
 
             <ListItemText
               primary={item.titulo}
-              primaryTypographyProps={{
-                fontWeight: 500
-              }}
+              primaryTypographyProps={{ fontWeight: 500 }}
             />
 
           </ListItemButton>

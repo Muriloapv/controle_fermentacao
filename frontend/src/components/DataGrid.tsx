@@ -9,12 +9,13 @@ interface AppDataGridProps {
   rows: GridRowsProp;
   columns: GridColDef[];
   loading?: boolean;
+  getRowId?: (row: any) => any;
 
   onEdit?: (row: any) => void;
   onDelete?: (row: any) => void;
 }
 
-export default function AppDataGrid({ rows, columns, loading = false, onEdit, onDelete, }: AppDataGridProps) {
+export default function AppDataGrid({ rows, columns, loading = false, getRowId, onEdit, onDelete, }: AppDataGridProps) {
 
   const actionColumn: GridColDef = {
     field: "actions",
@@ -48,6 +49,7 @@ export default function AppDataGrid({ rows, columns, loading = false, onEdit, on
         rows={rows}
         columns={[...columns, actionColumn]}
         loading={loading}
+        getRowId={getRowId}
         pageSizeOptions={[10, 25, 50]}
         disableRowSelectionOnClick
         density="standard"

@@ -7,8 +7,7 @@ export default function MainLayout() {
 
   return (
 
-    <Box sx={{ display: "flex", minHeight: "100vh" }}
-    >
+    <Box sx={{ display: "flex", minHeight: "100vh" }}>
 
       <Sidebar />
 

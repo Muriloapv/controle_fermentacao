@@ -20,7 +20,7 @@ public class LoteDto
     [Required]
     public int CervejaId { get; set; }
 
-    [Required]
+    [Required(ErrorMessage ="A data de inicio é obrigatoria.")]
     public DateTime LoteInicio { get; set; }
 
     public DateTime? LoteFinalizacao { get; set; }

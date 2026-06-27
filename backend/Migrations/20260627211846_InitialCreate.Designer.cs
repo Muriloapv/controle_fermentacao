@@ -12,7 +12,7 @@ using arBrain.Data;
 namespace arBrain.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260625020421_InitialCreate")]
+    [Migration("20260627211846_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -29,232 +29,288 @@ namespace arBrain.Migrations
                 {
                     b.Property<int>("CervejaId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("cerveja_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CervejaId"));
 
                     b.Property<int>("CervejaEstiloId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("cerveja_estilo_id");
 
                     b.Property<DateTime?>("CervejaExclusao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("cerveja_exclusao");
 
                     b.Property<DateTime>("CervejaInclusao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("cerveja_inclusao");
 
                     b.Property<string>("CervejaNome")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("cerveja_nome");
 
                     b.Property<string>("CervejaObservacao")
                         .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("cerveja_observacao");
 
-                    b.HasKey("CervejaId");
+                    b.HasKey("CervejaId")
+                        .HasName("pk_cervejas");
 
-                    b.HasIndex("CervejaEstiloId");
+                    b.HasIndex("CervejaEstiloId")
+                        .HasDatabaseName("ix_cervejas_cerveja_estilo_id");
 
-                    b.ToTable("Cervejas");
+                    b.ToTable("cervejas", (string)null);
                 });
 
             modelBuilder.Entity("arBrain.Models.CervejaEstilo", b =>
                 {
                     b.Property<int>("CervejaEstiloId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("cerveja_estilo_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CervejaEstiloId"));
 
                     b.Property<string>("CervejaEstiloDescricao")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("cerveja_estilo_descricao");
 
                     b.Property<DateTime?>("CervejaEstiloExclusao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("cerveja_estilo_exclusao");
 
                     b.Property<DateTime>("CervejaEstiloInclusao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("cerveja_estilo_inclusao");
 
                     b.Property<string>("CervejaEstiloObservacao")
                         .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("cerveja_estilo_observacao");
 
-                    b.HasKey("CervejaEstiloId");
+                    b.HasKey("CervejaEstiloId")
+                        .HasName("pk_cerveja_estilos");
 
-                    b.ToTable("CervejaEstilos");
+                    b.ToTable("cerveja_estilos", (string)null);
                 });
 
             modelBuilder.Entity("arBrain.Models.CervejaParametros.CervejaParametro", b =>
                 {
                     b.Property<int>("CervejaParametroId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("cerveja_parametro_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CervejaParametroId"));
 
                     b.Property<int>("CervejaId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("cerveja_id");
 
                     b.Property<DateTime?>("CervejaParametroExclusao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("cerveja_parametro_exclusao");
 
                     b.Property<decimal>("CervejaParametroExtratoMax")
                         .HasPrecision(5, 2)
-                        .HasColumnType("numeric(5,2)");
+                        .HasColumnType("numeric(5,2)")
+                        .HasColumnName("cerveja_parametro_extrato_max");
 
                     b.Property<decimal>("CervejaParametroExtratoMin")
                         .HasPrecision(5, 2)
-                        .HasColumnType("numeric(5,2)");
+                        .HasColumnType("numeric(5,2)")
+                        .HasColumnName("cerveja_parametro_extrato_min");
 
                     b.Property<DateTime>("CervejaParametroInclusao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("cerveja_parametro_inclusao");
 
                     b.Property<string>("CervejaParametroObservacao")
                         .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("cerveja_parametro_observacao");
 
                     b.Property<decimal>("CervejaParametroPhMax")
                         .HasPrecision(5, 3)
-                        .HasColumnType("numeric(5,3)");
+                        .HasColumnType("numeric(5,3)")
+                        .HasColumnName("cerveja_parametro_ph_max");
 
                     b.Property<decimal>("CervejaParametroPhMin")
                         .HasPrecision(5, 3)
-                        .HasColumnType("numeric(5,3)");
+                        .HasColumnType("numeric(5,3)")
+                        .HasColumnName("cerveja_parametro_ph_min");
 
                     b.Property<decimal>("CervejaParametroTemperaturaMax")
                         .HasPrecision(5, 2)
-                        .HasColumnType("numeric(5,2)");
+                        .HasColumnType("numeric(5,2)")
+                        .HasColumnName("cerveja_parametro_temperatura_max");
 
                     b.Property<decimal>("CervejaParametroTemperaturaMin")
                         .HasPrecision(5, 2)
-                        .HasColumnType("numeric(5,2)");
+                        .HasColumnType("numeric(5,2)")
+                        .HasColumnName("cerveja_parametro_temperatura_min");
 
-                    b.HasKey("CervejaParametroId");
+                    b.HasKey("CervejaParametroId")
+                        .HasName("pk_cerveja_parametros");
 
-                    b.HasIndex("CervejaId");
+                    b.HasIndex("CervejaId")
+                        .HasDatabaseName("ix_cerveja_parametros_cerveja_id");
 
-                    b.ToTable("CervejaParametros");
+                    b.ToTable("cerveja_parametros", (string)null);
                 });
 
             modelBuilder.Entity("arBrain.Models.FermentacaoHistorico.FermentacaoHistorico", b =>
                 {
                     b.Property<int>("HistoricoId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("historico_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("HistoricoId"));
 
                     b.Property<DateTime>("HistoricoDataColeta")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("historico_data_coleta");
 
                     b.Property<decimal>("HistoricoExtrato")
                         .HasPrecision(5, 2)
-                        .HasColumnType("numeric(5,2)");
+                        .HasColumnType("numeric(5,2)")
+                        .HasColumnName("historico_extrato");
 
                     b.Property<string>("HistoricoObservacao")
                         .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("historico_observacao");
 
                     b.Property<decimal>("HistoricoPh")
                         .HasPrecision(5, 3)
-                        .HasColumnType("numeric(5,3)");
+                        .HasColumnType("numeric(5,3)")
+                        .HasColumnName("historico_ph");
 
                     b.Property<string>("HistoricoResponsavel")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("historico_responsavel");
 
                     b.Property<decimal>("HistoricoTemperatura")
                         .HasPrecision(5, 2)
-                        .HasColumnType("numeric(5,2)");
+                        .HasColumnType("numeric(5,2)")
+                        .HasColumnName("historico_temperatura");
 
                     b.Property<int>("LoteId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("lote_id");
 
-                    b.HasKey("HistoricoId");
+                    b.HasKey("HistoricoId")
+                        .HasName("pk_fermentacao_historicos");
 
-                    b.HasIndex("LoteId");
+                    b.HasIndex("LoteId")
+                        .HasDatabaseName("ix_fermentacao_historicos_lote_id");
 
-                    b.ToTable("FermentacaoHistoricos");
+                    b.ToTable("fermentacao_historicos", (string)null);
                 });
 
             modelBuilder.Entity("arBrain.Models.Lote.Lote", b =>
                 {
                     b.Property<int>("LoteId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("lote_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("LoteId"));
 
                     b.Property<int>("CervejaId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("cerveja_id");
 
                     b.Property<string>("LoteDescricao")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("lote_descricao");
 
                     b.Property<DateTime?>("LoteExclusao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("lote_exclusao");
 
                     b.Property<DateTime?>("LoteFinalizacao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("lote_finalizacao");
 
                     b.Property<DateTime>("LoteInicio")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("lote_inicio");
 
                     b.Property<string>("LoteObservacao")
                         .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("lote_observacao");
 
                     b.Property<decimal>("LoteQuantidade")
                         .HasPrecision(10, 2)
-                        .HasColumnType("numeric(10,2)");
+                        .HasColumnType("numeric(10,2)")
+                        .HasColumnName("lote_quantidade");
 
                     b.Property<int>("TanqueId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("tanque_id");
 
-                    b.HasKey("LoteId");
+                    b.HasKey("LoteId")
+                        .HasName("pk_lotes");
 
-                    b.HasIndex("CervejaId");
+                    b.HasIndex("CervejaId")
+                        .HasDatabaseName("ix_lotes_cerveja_id");
 
-                    b.HasIndex("TanqueId");
+                    b.HasIndex("TanqueId")
+                        .HasDatabaseName("ix_lotes_tanque_id");
 
-                    b.ToTable("Lotes");
+                    b.ToTable("lotes", (string)null);
                 });
 
             modelBuilder.Entity("arBrain.Models.Tanque.Tanque", b =>
                 {
                     b.Property<int>("TanqueId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("tanque_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TanqueId"));
 
                     b.Property<decimal>("TanqueCapacidade")
                         .HasPrecision(10, 2)
-                        .HasColumnType("numeric(10,2)");
+                        .HasColumnType("numeric(10,2)")
+                        .HasColumnName("tanque_capacidade");
 
                     b.Property<string>("TanqueDescricao")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("tanque_descricao");
 
                     b.Property<DateTime?>("TanqueExclusao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("tanque_exclusao");
 
                     b.Property<DateTime>("TanqueInclusao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("tanque_inclusao");
 
                     b.Property<string>("TanqueObservacao")
                         .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("tanque_observacao");
 
-                    b.HasKey("TanqueId");
+                    b.HasKey("TanqueId")
+                        .HasName("pk_tanques");
 
-                    b.ToTable("Tanques");
+                    b.ToTable("tanques", (string)null);
                 });
 
             modelBuilder.Entity("arBrain.Models.Cerveja", b =>
@@ -263,7 +319,8 @@ namespace arBrain.Migrations
                         .WithMany("Cervejas")
                         .HasForeignKey("CervejaEstiloId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_cervejas_cerveja_estilos_cerveja_estilo_id");
 
                     b.Navigation("CervejaEstilo");
                 });
@@ -274,7 +331,8 @@ namespace arBrain.Migrations
                         .WithMany()
                         .HasForeignKey("CervejaId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_cerveja_parametros_cervejas_cerveja_id");
 
                     b.Navigation("Cerveja");
                 });
@@ -285,7 +343,8 @@ namespace arBrain.Migrations
                         .WithMany()
                         .HasForeignKey("LoteId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_fermentacao_historicos_lotes_lote_id");
 
                     b.Navigation("Lote");
                 });
@@ -296,13 +355,15 @@ namespace arBrain.Migrations
                         .WithMany("Lotes")
                         .HasForeignKey("CervejaId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_lotes_cervejas_cerveja_id");
 
                     b.HasOne("arBrain.Models.Tanque.Tanque", "Tanque")
                         .WithMany("Lotes")
                         .HasForeignKey("TanqueId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_lotes_tanques_tanque_id");
 
                     b.Navigation("Cerveja");
 
