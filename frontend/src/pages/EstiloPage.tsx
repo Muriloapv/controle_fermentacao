@@ -4,6 +4,7 @@ import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import type { CervejaEstilo } from "../models/CrevejaEstilo";
+import CervejaEstiloCadastroModal from "../components/CervejaEstiloCadastroModal";
 
 const columns: GridColDef[] = [
   {
@@ -26,6 +27,8 @@ const columns: GridColDef[] = [
 export default function EstiloPage() {
   const [rows, setRows] = useState<CervejaEstilo[]>([]);
   const [loading, setLoading] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
+  const [estiloSelecionado, setEstiloSelecionado] = useState<CervejaEstilo | null>(null);
 
   useEffect(() => {
     carregarEstilos();
@@ -48,13 +51,23 @@ export default function EstiloPage() {
   }
 
   function editar(row: CervejaEstilo) {
-    console.log("Editar:", row);
+    setEstiloSelecionado(row);
+    setOpenModal(true);
   }
 
-  function excluir(row: CervejaEstilo) {
+  async function excluir(row: CervejaEstilo) {
 
     if (confirm(`Deseja excluir ${row.cervejaEstiloDescricao}?`)) {
-      console.log("Excluir:", row);
+      try {
+        await axios.delete<CervejaEstilo[]>(
+          "http://localhost:5298/api/CervejaEstilo/" + row.cervejaEstiloId
+        )
+
+        carregarEstilos();
+      } catch ( error ){
+        console.error("Error ao excluir estilo", error );
+      }
+      
     }
   }
 
@@ -66,7 +79,14 @@ export default function EstiloPage() {
         </Typography>
               
         <Box sx={{ display: "flex", gap: 1 }}>
-          <Button variant="contained" sx={{ backgroundColor: "#FFC524", "&:hover": { backgroundColor: "#e6b020" }, color: "#000" }}>
+          <Button
+            onClick={() => {
+              setEstiloSelecionado(null);
+              setOpenModal(true);
+            }}
+            variant="contained"
+            sx={{ backgroundColor: "#FFC524", "&:hover": { backgroundColor: "#e6b020" }, color: "#000" }}
+          >
             Adicionar estilo
           </Button>
         </Box>
@@ -82,6 +102,16 @@ export default function EstiloPage() {
           onDelete={excluir}
         />
       </Box>
+
+      <CervejaEstiloCadastroModal
+        open={openModal}
+        estilo={estiloSelecionado}
+        onClose={() => {
+          setOpenModal(false);
+          setEstiloSelecionado(null);
+        }}
+        onSuccess={carregarEstilos}
+      />
     </>
   );
 }

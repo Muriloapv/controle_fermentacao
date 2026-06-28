@@ -55,10 +55,19 @@ export default function TanquePage() {
     console.log("Editar:", row);
   }
 
-  function excluir(row: Tanque) {
+  async function excluir(row: Tanque) {
 
     if (confirm(`Deseja excluir ${row.tanqueDescricao}?`)) {
-      console.log("Excluir:", row);
+      try {
+        await axios.delete<Tanque[]>(
+          "http://localhost:5298/api/tanque/" + row.tanqueId   
+        )
+        
+        carregarTanques();
+      } catch(error){
+        console.error("", error)
+      }
+      
     }
   }
 

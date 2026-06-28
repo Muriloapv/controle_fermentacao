@@ -1,5 +1,6 @@
 import type { GridColDef } from "@mui/x-data-grid";
 import AppDataGrid from "../components/DataGrid";
+import CervejaCadastroModal from "../components/CervejaCadastroModal";
 import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -32,6 +33,8 @@ const columns: GridColDef[] = [
 export default function CervejaPage() {
   const [rows, setRows] = useState<Cerveja[]>([]);
   const [loading, setLoading] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
+  const [cervejaSelecionada, setCervejaSelecionada] = useState<Cerveja | null>(null);
 
   useEffect(() => {
     carregarCervejas();
@@ -54,13 +57,19 @@ export default function CervejaPage() {
   }
 
   function editar(row: Cerveja) {
-    console.log("Editar:", row);
+    setCervejaSelecionada(row);
+    setOpenModal( true );
   }
 
-  function excluir(row: Cerveja) {
-
+  async function excluir(row: Cerveja) {
     if (confirm(`Deseja excluir ${row.cervejaNome}?`)) {
-      console.log("Excluir:", row);
+      try {
+        await axios.delete<Cerveja[]>( "http://localhost:5298/api/Cervejas/" + row.cervejaId )
+
+        carregarCervejas();
+      } catch( error ){
+        console.error("Erro ao excluir cerveja", error );
+      }
     }
   }
 
@@ -72,7 +81,9 @@ export default function CervejaPage() {
         </Typography>
               
         <Box sx={{ display: "flex", gap: 1 }}>
-          <Button variant="contained" sx={{ backgroundColor: "#FFC524", "&:hover": { backgroundColor: "#e6b020" }, color: "#000" }}>
+          <Button onClick={() => { setCervejaSelecionada( null );
+                                   setOpenModal( true );
+          }} variant="contained" sx={{ backgroundColor: "#FFC524", "&:hover": { backgroundColor: "#e6b020" }, color: "#000" }}>
             Adicionar cerveja
           </Button>
         </Box>
@@ -86,6 +97,16 @@ export default function CervejaPage() {
           getRowId={(row) => row.cervejaId }
           onEdit={editar}
           onDelete={excluir}
+        />
+        
+        <CervejaCadastroModal
+          open={openModal}
+          cerveja={cervejaSelecionada}
+          onClose={() => {
+            setCervejaSelecionada(null);
+            setOpenModal(false);
+          }}
+          onSuccess={carregarCervejas}
         />
       </Box>
     </>

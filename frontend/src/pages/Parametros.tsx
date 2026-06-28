@@ -4,6 +4,7 @@ import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import type { CervejaParametros } from "../models/CervejaParametros";
+import type { FermentacaoHistorico } from "../models/FermentacaoHistorico";
 
 const columns: GridColDef[] = [
   {
@@ -82,10 +83,18 @@ export default function ParametrosPage() {
     console.log("Editar:", row);
   }
 
-  function excluir(row: any) {
+  async function excluir(row: any) {
 
     if (confirm(`Deseja excluir ${row.nome}?`)) {
-      console.log("Excluir:", row);
+      try {
+        await axios.delete<CervejaParametros[]>(
+          "http://localhost:5298/api/cervejaParametro/" + row.cervejaParametroId
+        );
+
+        carregarParametros();       
+      } catch(error){
+        console.error("Erro ao excluir parâmetros", error)
+      }
     }
   }
 

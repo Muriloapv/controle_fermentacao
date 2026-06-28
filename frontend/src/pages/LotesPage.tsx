@@ -76,10 +76,17 @@ export default function LotesPage() {
     console.log("Editar:", row);
   }
 
-  function excluir(row: Lote) {
-
+  async function excluir(row: Lote) {
     if (confirm(`Deseja excluir ${row.loteDescricao}?`)) {
-      console.log("Excluir:", row);
+      try {
+        await axios.delete<Lote[]>(
+          "http://localhost:5298/api/lote" + row.loteId
+        )
+
+        carregarLotes();
+      } catch(error){
+        console.error("Erro ao excluir lote", error)
+      }
     }
   }
 

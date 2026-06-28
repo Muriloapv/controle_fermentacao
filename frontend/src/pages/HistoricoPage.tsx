@@ -73,10 +73,7 @@ export default function HistoricoPage() {
   }
 
   function excluir(row: FermentacaoHistorico) {
-
-    if (confirm(`Deseja excluir ${row.historicoId}?`)) {
-      console.log("Excluir:", row);
-    }
+    console.log("Não é possivel excluir historico", row);
   }
 
   return (
