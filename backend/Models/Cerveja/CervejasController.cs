@@ -17,6 +17,7 @@ public class CervejasController : ControllerBase
         _appDbContext = appDbContext;
     }
 
+    // Cria uma nova cerveja com nome, observação e estilo.
     [HttpPost]
     public async Task<IActionResult> AddCerveja(CervejaDto dto)
     {
@@ -33,6 +34,7 @@ public class CervejasController : ControllerBase
         return Created("Cerveja criada com sucesso", cerveja);
     }
 
+    // Retorna todas as cervejas ativas (o global query filter já exclui as deletadas logicamente).
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Cerveja>>> GetCervejas()
     {
@@ -40,6 +42,7 @@ public class CervejasController : ControllerBase
         return Ok(listCervejas);
     }
 
+    // Retorna uma cerveja específica pelo ID.
     [HttpGet("{id}")]
     public async Task<ActionResult<Cerveja>> GetCervejaById(int id)
     {
@@ -51,6 +54,7 @@ public class CervejasController : ControllerBase
         return Ok(cerveja);
     }
 
+    // Atualiza nome, observação e estilo de uma cerveja existente.
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateCerveja(int id, [FromBody] CervejaDto dto)
     {
@@ -67,6 +71,7 @@ public class CervejasController : ControllerBase
         return Ok(cervejaAtual);
     }
 
+    // Soft-delete: preenche CervejaExclusao em vez de remover fisicamente o registro.
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCerveja(int id)
     {

@@ -39,6 +39,7 @@ export default function DashboardPage() {
     carregarIndicadores();
   }, []);
 
+  // Busca o último registro de fermentação de cada lote ativo e computa os indicadores do dashboard.
   async function carregarIndicadores() {
     try {
       setLoading(true);
@@ -55,6 +56,7 @@ export default function DashboardPage() {
     }
   }
 
+  // Classifica cada lote: 0 parâmetros fora = dentro do padrão; 1 = requer atenção; 2+ = fora do padrão.
   function calcularIndicadores(registros: UltimoRegistroFermentacao[]) {
     const totais = { ...indicadoresIniciais, total: registros.length };
 

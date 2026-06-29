@@ -62,12 +62,13 @@ export default function ParametrosPage() {
     carregarParametros();
   }, []);
 
+  // Busca os parâmetros de todas as cervejas da API e atualiza a tabela.
   async function carregarParametros() {
     try {
       setLoading(true);
-      
+
       const response = await axios.get<CervejaParametros[]>(
-         "http://localhost:5298/api/cervejaParametro" 
+         "http://localhost:5298/api/cervejaParametro"
         );
 
       setRows(response.data);
@@ -78,10 +79,12 @@ export default function ParametrosPage() {
     }
   }
 
+  // Parâmetros são gerenciados pelo cadastro da cerveja: bloqueia edição direta com alerta.
   function editar(row: any) {
     alert("Para editar algum parametro referente a cerveja, por favor acesse o cadastro da cerveja em questão")
   }
 
+  // Parâmetros são gerenciados pelo cadastro da cerveja: bloqueia exclusão direta com alerta.
   async function excluir(row: any) {
     alert("Para excluir algum parametro referente a cerveja, por favor acesse o cadastro da cerveja em questão")
   }

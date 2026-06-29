@@ -42,9 +42,8 @@ export default function CervejaEstiloCadastroModal({ open, onClose, estilo, onSu
     }
   }, [open, estilo]);
 
+  // Atualiza um campo do formulário e limpa o erro associado a ele.
   function alterarCampo(campo: keyof EstiloForm, valor: string) {
-    
-    
     setForm((atual) => ({
       ...atual,
       [campo]: valor,
@@ -66,6 +65,7 @@ export default function CervejaEstiloCadastroModal({ open, onClose, estilo, onSu
     onClose();
   }
 
+  // Valida descrição e observação do estilo antes de salvar.
   function validarFormulario() {
     const novosErros: Record<string, string> = {};
 

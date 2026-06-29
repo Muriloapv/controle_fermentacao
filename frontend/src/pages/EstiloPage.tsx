@@ -34,12 +34,13 @@ export default function EstiloPage() {
     carregarEstilos();
   }, []);
 
+  // Busca todos os estilos de cerveja da API e atualiza a tabela.
   async function carregarEstilos() {
     try {
       setLoading(true);
-      
+
       const response = await axios.get<CervejaEstilo[]>(
-         "http://localhost:5298/api/CervejaEstilo" 
+         "http://localhost:5298/api/CervejaEstilo"
         );
 
       setRows(response.data);
@@ -50,11 +51,13 @@ export default function EstiloPage() {
     }
   }
 
+  // Define o estilo selecionado e abre o modal em modo de edição.
   function editar(row: CervejaEstilo) {
     setEstiloSelecionado(row);
     setOpenModal(true);
   }
 
+  // Solicita confirmação e envia soft-delete do estilo para a API.
   async function excluir(row: CervejaEstilo) {
 
     if (confirm(`Deseja excluir ${row.cervejaEstiloDescricao}?`)) {
@@ -67,7 +70,7 @@ export default function EstiloPage() {
       } catch ( error ){
         console.error("Error ao excluir estilo", error );
       }
-      
+
     }
   }
 

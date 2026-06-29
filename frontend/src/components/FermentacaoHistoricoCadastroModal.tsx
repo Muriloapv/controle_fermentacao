@@ -53,6 +53,7 @@ export default function FermentacaoHistoricoCadastroModal({ open, onClose,onSucc
     }
   }
 
+  // Atualiza um campo do formulário e limpa o erro associado a ele.
   function alterarCampo(campo: keyof HistoricoForm, valor: string) {
     setForm  ((atual) => ({ ...atual, [campo]: valor, }));
     setErrors((atual) => ({ ...atual, [campo]: ""   , }));
@@ -68,6 +69,7 @@ export default function FermentacaoHistoricoCadastroModal({ open, onClose,onSucc
     onClose();
   }
 
+  // Verifica se um campo numérico do histórico está preenchido e é maior que zero.
   function validarNumero(  campo: keyof HistoricoForm,mensagem: string, novosErros: Record<string, string>) {
     const valor = Number(form[campo]);
 
@@ -78,6 +80,7 @@ export default function FermentacaoHistoricoCadastroModal({ open, onClose,onSucc
     }
   }
 
+  // Valida pH, temperatura, extrato, responsável e data de coleta antes de salvar.
   function validarFormulario() {
     const novosErros: Record<string, string> = {};
 

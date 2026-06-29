@@ -43,6 +43,7 @@ export default function TanqueCadastroModal({ open, tanque, onClose, onSuccess }
     setErrors({});
   }, [open, tanque]);
 
+  // Atualiza um campo do formulário e limpa o erro associado a ele.
   function alterarCampo(campo: keyof TanqueForm, valor: string) {
     setForm((atual) => ({
       ...atual,
@@ -65,6 +66,7 @@ export default function TanqueCadastroModal({ open, tanque, onClose, onSuccess }
     onClose();
   }
 
+  // Valida descrição e capacidade do tanque antes de salvar.
   function validarFormulario() {
     const novosErros: Record<string, string> = {};
     const capacidade = Number(form.tanqueCapacidade);

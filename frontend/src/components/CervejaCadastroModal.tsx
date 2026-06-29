@@ -104,6 +104,7 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
     }
   }
 
+  // Atualiza um campo do formulário e limpa o erro associado a ele.
   function alterarCampo(campo: keyof CervejaForm, valor: string) {
     setForm((atual) => ({
       ...atual,
@@ -127,6 +128,7 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
     onClose();
   }
 
+  // Valida todos os campos obrigatórios da cerveja e dos parâmetros de fermentação.
   function validarFormulario() {
     const novosErros: Record<string, string> = {};
 
@@ -156,6 +158,7 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
     return Object.keys(novosErros).length === 0;
   }
 
+  // Verifica se um campo numérico do formulário está preenchido e é maior que zero.
   function validarNumeroObrigatorio( campo: keyof CervejaForm, mensagem: string, novosErros: Record<string, string> ) {
     const valor = Number(form[campo]);
 

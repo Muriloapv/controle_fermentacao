@@ -17,6 +17,7 @@ public class LoteController : ControllerBase
         _appDbContext = appDbContext;
     }
 
+    // Cria um novo lote vinculando cerveja, tanque, quantidade e datas de início/finalização.
     [HttpPost]
     public async Task<IActionResult> AddLote(LoteDto dto)
     {
@@ -37,6 +38,7 @@ public class LoteController : ControllerBase
         return Created("Lote criado com sucesso", lote);
     }
 
+    // Retorna todos os lotes ativos. Lotes em andamento têm LoteFinalizacao nulo.
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Lote>>> GetLotes()
     {
@@ -44,6 +46,7 @@ public class LoteController : ControllerBase
         return Ok(listLotes);
     }
 
+    // Retorna um lote específico pelo ID.
     [HttpGet("{id}")]
     public async Task<ActionResult<Lote>> GetLoteById(int id)
     {
@@ -55,6 +58,7 @@ public class LoteController : ControllerBase
         return Ok(lote);
     }
 
+    // Atualiza os dados de um lote existente, incluindo data de finalização.
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateLote(int id, [FromBody] LoteDto dto)
     {
@@ -76,6 +80,7 @@ public class LoteController : ControllerBase
         return Ok(loteAtual);
     }
 
+    // Soft-delete: preenche LoteExclusao em vez de remover fisicamente o lote e seu histórico.
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteLote(int id)
     {

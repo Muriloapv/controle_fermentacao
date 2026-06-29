@@ -38,12 +38,13 @@ export default function TanquePage() {
     carregarTanques();
   }, []);
 
+  // Busca todos os tanques da API e atualiza a tabela.
   async function carregarTanques() {
     try {
       setLoading(true);
-      
+
       const response = await axios.get<Tanque[]>(
-         "http://localhost:5298/api/tanque" 
+         "http://localhost:5298/api/tanque"
         );
 
       setRows(response.data);
@@ -54,24 +55,26 @@ export default function TanquePage() {
     }
   }
 
+  // Define o tanque selecionado e abre o modal em modo de edição.
   function editar(row: Tanque) {
     setTanqueSelecionado(row);
     setOpenModal(true);
   }
 
+  // Solicita confirmação e envia soft-delete do tanque para a API.
   async function excluir(row: Tanque) {
 
     if (confirm(`Deseja excluir ${row.tanqueDescricao}?`)) {
       try {
         await axios.delete<Tanque[]>(
-          "http://localhost:5298/api/tanque/" + row.tanqueId   
+          "http://localhost:5298/api/tanque/" + row.tanqueId
         )
-        
+
         carregarTanques();
       } catch(error){
         console.error("", error)
       }
-      
+
     }
   }
 

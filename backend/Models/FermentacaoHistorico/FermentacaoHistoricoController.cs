@@ -17,6 +17,7 @@ public class FermentacaoHistoricoController : ControllerBase
         _appDbContext = appDbContext;
     }
 
+    // Registra uma nova leitura de pH, temperatura e extrato vinculada a um lote.
     [HttpPost]
     public async Task<IActionResult> AddHistorico(FermentacaoHistoricoDto dto)
     {
@@ -37,6 +38,7 @@ public class FermentacaoHistoricoController : ControllerBase
         return Created("Historico registrado com sucesso!", historico);
     }
 
+    // Retorna todo o histórico de fermentação registrado sem nenhum filtro.
     [HttpGet]
     public async Task<ActionResult<IEnumerable<FermentacaoHistorico>>> GetHistoricos()
     {
@@ -44,6 +46,7 @@ public class FermentacaoHistoricoController : ControllerBase
         return Ok(listHistorico);
     }
 
+    // Retorna um registro de histórico específico pelo ID.
     [HttpGet("{id}")]
     public async Task<ActionResult<FermentacaoHistorico>> GetHistoricoById(int id)
     {
@@ -57,6 +60,8 @@ public class FermentacaoHistoricoController : ControllerBase
 
     // O historico não pode ser alterado nem deletado para garantir a confiabilidade das informações
 
+    // Para cada lote ativo, busca o registro mais recente e classifica temperatura, pH e extrato
+    // como 'ok', 'acima' ou 'abaixo' dos parâmetros da receita — usado no dashboard.
     [HttpGet("ultimos-registros")]
     public async Task<ActionResult<IEnumerable<LoteParametroAtualDto>>> GetLotesParametrosAtuais()
     {

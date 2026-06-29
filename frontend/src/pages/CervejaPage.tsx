@@ -40,12 +40,13 @@ export default function CervejaPage() {
     carregarCervejas();
   }, []);
 
+  // Busca todas as cervejas da API e atualiza a tabela.
   async function carregarCervejas() {
     try {
       setLoading(true);
-      
+
       const response = await axios.get<Cerveja[]>(
-         "http://localhost:5298/api/Cervejas" 
+         "http://localhost:5298/api/Cervejas"
         );
 
       setRows(response.data);
@@ -56,11 +57,13 @@ export default function CervejaPage() {
     }
   }
 
+  // Define a cerveja selecionada e abre o modal em modo de edição.
   function editar(row: Cerveja) {
     setCervejaSelecionada(row);
     setOpenModal( true );
   }
 
+  // Solicita confirmação e envia soft-delete para a API.
   async function excluir(row: Cerveja) {
     if (confirm(`Deseja excluir ${row.cervejaNome}?`)) {
       try {

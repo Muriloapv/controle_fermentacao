@@ -17,6 +17,7 @@ public class CervejaEstiloController : ControllerBase
         _appDbContext = appDbContext;
     }
 
+    // Cadastra um novo estilo de cerveja (ex: IPA, Lager, Stout).
     [HttpPost]
     public async Task<IActionResult> AddEstilo(CervejaEstiloDto dto)
     {
@@ -32,6 +33,7 @@ public class CervejaEstiloController : ControllerBase
         return Created( "Estilo de Cerveja criado com sucesso", estilo );
     }
 
+    // Retorna todos os estilos de cerveja ativos.
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CervejaEstilo>>> GetEstilos()
     {
@@ -39,6 +41,7 @@ public class CervejaEstiloController : ControllerBase
         return Ok(listEstilos);
     }
 
+    // Retorna um estilo de cerveja específico pelo ID.
     [HttpGet("{id}")]
     public async Task<ActionResult<CervejaEstilo>> GetEstiloById(int id)
     {
@@ -50,6 +53,7 @@ public class CervejaEstiloController : ControllerBase
         return Ok(estilo);
     }
 
+    // Atualiza descrição e observação de um estilo existente.
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateEstilo(int id, [FromBody] CervejaEstiloDto dto)
     {
@@ -65,6 +69,7 @@ public class CervejaEstiloController : ControllerBase
         return Ok(estiloAtual);
     }
 
+    // Soft-delete: preenche CervejaEstiloExclusao preservando cervejas que referenciam este estilo.
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteEstilo(int id)
     {

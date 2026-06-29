@@ -82,6 +82,7 @@ export default function LoteCadastroModal({ open, lote, onClose, onSuccess }: Pr
     }
   }
 
+  // Atualiza um campo do formulário e limpa o erro associado a ele.
   function alterarCampo(campo: keyof LoteForm, valor: string) {
     setForm  ((atual) => ({ ...atual, [campo]: valor, }));
     setErrors((atual) => ({ ...atual, [campo]: ""   , }));
@@ -97,6 +98,7 @@ export default function LoteCadastroModal({ open, lote, onClose, onSuccess }: Pr
     onClose();
   }
 
+  // Valida todos os campos do lote, incluindo datas e integridade de início/finalização.
   function validarFormulario() {
     const novosErros: Record<string, string> = {};
     const quantidade = Number(form.loteQuantidade);

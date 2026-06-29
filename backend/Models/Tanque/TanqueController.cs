@@ -17,6 +17,7 @@ public class TanqueController : ControllerBase
         _appDbContext = appDbContext;
     }
 
+    // Cadastra um novo tanque com descrição, capacidade em litros e observação.
     [HttpPost]
     public async Task<IActionResult> AddTanque(TanqueDto dto)
     {
@@ -33,6 +34,7 @@ public class TanqueController : ControllerBase
         return Created("Tanque registrado com sucesso!", tanque);
     }
 
+    // Retorna todos os tanques ativos.
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Tanque>>> GetTanques()
     {
@@ -40,6 +42,7 @@ public class TanqueController : ControllerBase
         return Ok(listTanques);
     }
 
+    // Retorna um tanque específico pelo ID.
     [HttpGet("{id}")]
     public async Task<ActionResult<Tanque>> GetTanqueById(int id)
     {
@@ -51,6 +54,7 @@ public class TanqueController : ControllerBase
         return Ok(tanque);
     }
 
+    // Atualiza descrição, capacidade e observação de um tanque existente.
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateTanque(int id, [FromBody] TanqueDto dto)
     {
@@ -68,6 +72,7 @@ public class TanqueController : ControllerBase
         return Ok(tanqueAtual);
     }
 
+    // Soft-delete: preenche TanqueExclusao para preservar referências nos lotes existentes.
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTanque(int id)
     {

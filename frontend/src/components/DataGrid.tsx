@@ -15,6 +15,7 @@ interface AppDataGridProps {
   onDelete?: (row: any) => void;
 }
 
+// Grid reutilizável que injeta automaticamente uma coluna de ações (editar/excluir) em todas as tabelas.
 export default function AppDataGrid({ rows, columns, loading = false, getRowId, onEdit, onDelete, }: AppDataGridProps) {
 
   const actionColumn: GridColDef = {

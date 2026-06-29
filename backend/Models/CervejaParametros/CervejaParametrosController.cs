@@ -17,6 +17,7 @@ public class CervejaParametroController : ControllerBase
         _appDbContext = appDbContext;
     }
 
+    // Cadastra os parâmetros de fermentação (faixas de temperatura, pH e extrato) para uma cerveja.
     [HttpPost]
     public async Task<IActionResult> AddParametro(CervejaParametroDto dto)
     {
@@ -38,6 +39,7 @@ public class CervejaParametroController : ControllerBase
         return Created("Parametro da cerveja criado com sucesso", parametro);
     }
 
+    // Retorna os parâmetros de todas as cervejas ativas.
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CervejaParametro>>> GetParametros()
     {
@@ -45,6 +47,7 @@ public class CervejaParametroController : ControllerBase
         return Ok(listParametros);
     }
 
+    // Retorna os parâmetros de uma cerveja específica pelo ID do parâmetro.
     [HttpGet("{id}")]
     public async Task<ActionResult<CervejaParametro>> GetParametroById(int id)
     {
@@ -56,6 +59,7 @@ public class CervejaParametroController : ControllerBase
         return Ok(parametro);
     }
 
+    // Atualiza as faixas de temperatura, pH e extrato de um parâmetro existente.
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateParametro(int id, [FromBody] CervejaParametroDto dto)
     {
@@ -78,6 +82,7 @@ public class CervejaParametroController : ControllerBase
         return Ok(parametroAtual);
     }
 
+    // Soft-delete: preenche CervejaParametroExclusao para permitir histórico de versões dos parâmetros.
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteParametro(int id)
     {

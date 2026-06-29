@@ -54,10 +54,11 @@ export default function HistoricoPage() {
     carregarHistorico();
   }, []);
 
+  // Busca todo o histórico de fermentação da API e atualiza a tabela.
   async function carregarHistorico() {
     try {
       setLoading(true);
-      
+
       const response = await axios.get<FermentacaoHistorico[]>(
          "http://localhost:5298/api/FermentacaoHistorico"
         );
@@ -70,10 +71,12 @@ export default function HistoricoPage() {
     }
   }
 
+  // Histórico é imutável por regra de negócio: bloqueia a edição com alerta.
   function editar(row: FermentacaoHistorico) {
     alert("Não é possível editar histórico, crie um novo histórico a nova informação")
   }
 
+  // Histórico não pode ser deletado: informa o usuário via alerta.
   function excluir(row: FermentacaoHistorico) {
     alert("Não é possível excluir histórico, crie um novo histórico a nova informação")
   }

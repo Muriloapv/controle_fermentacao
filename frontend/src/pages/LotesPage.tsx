@@ -59,12 +59,13 @@ export default function LotesPage() {
     carregarLotes();
   }, []);
 
+  // Busca todos os lotes da API e atualiza a tabela.
   async function carregarLotes() {
     try {
       setLoading(true);
-      
+
       const response = await axios.get<Lote[]>(
-         "http://localhost:5298/api/lote" 
+         "http://localhost:5298/api/lote"
         );
 
       setRows(response.data);
@@ -75,11 +76,13 @@ export default function LotesPage() {
     }
   }
 
+  // Define o lote selecionado e abre o modal em modo de edição.
   function editar(row: Lote) {
     setLoteSelecionado(row);
     setOpenModal(true);
   }
 
+  // Solicita confirmação e envia soft-delete do lote para a API.
   async function excluir(row: Lote) {
     if (confirm(`Deseja excluir ${row.loteDescricao}?`)) {
       try {
