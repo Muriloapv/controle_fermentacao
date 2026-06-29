@@ -30,3 +30,22 @@ public class FermentacaoHistoricoDto
     [Required]
     public DateTime HistoricoDataColeta { get; set; }
 }
+
+public class LoteParametroAtualDto
+{
+    public int LoteId { get; set; }
+    public string LoteDescricao { get; set; } = string.Empty;
+
+    public decimal CervejaParametroExtratoMin { get; set; }
+    public decimal CervejaParametroExtratoMax { get; set; }
+
+    public decimal CervejaParametroTemperaturaMin { get; set; }
+    public decimal CervejaParametroTemperaturaMax { get; set; }
+    public decimal CervejaParametroPhMin { get; set; }
+    public decimal CervejaParametroPhMax { get; set; }
+
+    public string temperatura_padrao { get; set; }
+    public string ph_padrao { get; set; }
+
+    public string extrato_padrao { get; set; }
+}

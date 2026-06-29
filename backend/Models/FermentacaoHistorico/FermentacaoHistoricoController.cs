@@ -56,4 +56,38 @@ public class FermentacaoHistoricoController : ControllerBase
     }
 
     // O historico não pode ser alterado nem deletado para garantir a confiabilidade das informações
+
+    [HttpGet("ultimos-registros")]
+    public async Task<ActionResult<IEnumerable<LoteParametroAtualDto>>> GetLotesParametrosAtuais()
+    {
+         var dados = await _appDbContext.LotesParametrosAtuais.FromSqlRaw("""
+                with ftUltimoRegistro as (
+                    select fh.lote_id, max( fh.historico_id ) as historico_id 
+                    from fermentacao_historicos fh 
+                    group by fh.lote_id
+                )
+                select lot.lote_id, lot.lote_descricao, cp.cerveja_parametro_extrato_min, cp.cerveja_parametro_extrato_max, cp.cerveja_parametro_temperatura_min, cp.cerveja_parametro_temperatura_max, cp.cerveja_parametro_ph_min, cp.cerveja_parametro_ph_max,   
+                    case when fh.historico_temperatura < cp.cerveja_parametro_temperatura_min then 'abaixo'
+                            when fh.historico_temperatura > cp.cerveja_parametro_temperatura_max then 'acima'
+                            else 'ok'
+                    end as temperatura_padrao,
+                    case when fh.historico_ph < cp.cerveja_parametro_extrato_max then 'abaixo'
+                            when fh.historico_ph > cp.cerveja_parametro_ph_max then 'acima'
+                            else 'ok'
+                    end as ph_padrao,
+                    case when fh.historico_extrato < cp.cerveja_parametro_extrato_min then 'abaixo'
+                            when fh.historico_extrato > cp.cerveja_parametro_extrato_max then 'acima'
+                            else 'ok'
+                    end as extrato_padrao
+                from ftUltimoRegistro	    ft
+                join fermentacao_historicos fh  on fh.historico_id = ft.historico_id 
+                join lotes 					lot on lot.lote_id    = ft.lote_id and lot.lote_exclusao is null and lot.lote_finalizacao is null
+                join cerveja_parametros 	cp  on cp.cerveja_id = lot.cerveja_id and cp.cerveja_parametro_exclusao is null
+                order by ft.lote_id 
+         """).ToListAsync();
+
+         return Ok(dados);
+    }
+
+
 }

@@ -4,6 +4,7 @@ using arBrain.Models.FermentacaoHistorico;
 using arBrain.Models.Lote;
 using arBrain.Models.Tanque;
 using Microsoft.EntityFrameworkCore;
+using arBrain.DTOs.FermentacaoHistorico;
 
 namespace arBrain.Data;
 
@@ -20,6 +21,7 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<CervejaParametro>().HasQueryFilter( p => p.CervejaParametroExclusao == null);
         modelBuilder.Entity<Lote>().HasQueryFilter            ( l => l.LoteExclusao             == null);
         modelBuilder.Entity<Tanque>().HasQueryFilter          ( t => t.TanqueExclusao           == null);
+        modelBuilder.Entity<LoteParametroAtualDto>().HasNoKey();
     }
 
     public DbSet<Cerveja> Cervejas { get; set; }
@@ -30,4 +32,5 @@ public class AppDbContext : DbContext
     public DbSet<Tanque> Tanques { get; set; }
 
     public DbSet<FermentacaoHistorico> FermentacaoHistoricos { get; set; }
+    public DbSet<LoteParametroAtualDto> LotesParametrosAtuais { get; set; }
 }
