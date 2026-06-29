@@ -189,7 +189,7 @@ O sistema registra temperatura, pH e extrato a cada coleta, mas exibe essas info
 ## Uso de ferramentas de IA
 
 **Ferramentas utilizadas**
-Claude Code (Anthropic) como assistente durante o desenvolvimento.
+ChatGPT( OpenAI ) e Claude (Anthropic) como assistente durante o desenvolvimento.
 
 **Em quais partes a IA ajudou**
 - Geração de boilerplate repetitivo: models, DTOs, controllers CRUD e services Axios seguindo o mesmo padrão entre entidades
