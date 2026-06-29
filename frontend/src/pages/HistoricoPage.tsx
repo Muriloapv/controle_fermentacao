@@ -1,5 +1,6 @@
 import type { GridColDef } from "@mui/x-data-grid";
 import AppDataGrid from "../components/DataGrid";
+import FermentacaoHistoricoCadastroModal from "../components/FermentacaoHistoricoCadastroModal";
 import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -18,7 +19,7 @@ const columns: GridColDef[] = [
   },
   {
     field: "historicoPh",
-    headerName: "Ph",
+    headerName: "pH",
     flex: 1
   },
   {
@@ -33,7 +34,7 @@ const columns: GridColDef[] = [
   },
   {
     field: "historicoResponsavel",
-    headerName: "Responsavel",
+    headerName: "Responsável",
     flex: 1
   },
   {
@@ -47,6 +48,7 @@ const columns: GridColDef[] = [
 export default function HistoricoPage() {
   const [rows, setRows] = useState<FermentacaoHistorico[]>([]);
   const [loading, setLoading] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     carregarHistorico();
@@ -62,29 +64,29 @@ export default function HistoricoPage() {
 
       setRows(response.data);
     } catch (error) {
-      console.error("Erro ao carregar historico de fermentação:", error);
+      console.error("Erro ao carregar histórico de fermentação:", error);
     } finally {
       setLoading(false);
     }
   }
 
   function editar(row: FermentacaoHistorico) {
-    console.log("Editar:", row);
+    alert("Não é possível editar histórico, crie um novo histórico a nova informação")
   }
 
   function excluir(row: FermentacaoHistorico) {
-    console.log("Não é possivel excluir historico", row);
+    alert("Não é possível excluir histórico, crie um novo histórico a nova informação")
   }
 
   return (
     <>
       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2, }}> 
         <Typography sx={{ fontWeight: 700, fontSize: "1.5rem", lineHeight: 1 }}>
-          Historico de fermentação
+          Histórico de fermentação
         </Typography>
               
         <Box sx={{ display: "flex", gap: 1 }}>
-          <Button variant="contained" sx={{ backgroundColor: "#FFC524", "&:hover": { backgroundColor: "#e6b020" }, color: "#000" }}>
+          <Button onClick={() => setOpenModal(true)} variant="contained" sx={{ backgroundColor: "#FFC524", "&:hover": { backgroundColor: "#e6b020" }, color: "#000" }}>
             Adicionar registro de fermentação
           </Button>
         </Box>
@@ -100,6 +102,12 @@ export default function HistoricoPage() {
           onDelete={excluir}
         />
       </Box>
+
+      <FermentacaoHistoricoCadastroModal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        onSuccess={carregarHistorico}
+      />
     </>
   );
 }

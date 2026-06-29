@@ -45,6 +45,7 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [salvando, setSalvando] = useState(false);
 
+  // Ao abrir o modal, carrega os estilos e preenche os dados quando estiver em modo de edição.
   useEffect(() => {
     if (open) {
       carregarEstilos();
@@ -52,6 +53,7 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
     }
   }, [open, cerveja]);
 
+  // A listagem de cervejas não traz os parâmetros; por isso eles são buscados separadamente na edição.
   async function carregarDadosEdicao() {
     if (!cerveja) {
       setForm(formInicial);
@@ -131,7 +133,7 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
     if ( !form.cervejaNome.trim() ) {
       novosErros.cervejaNome = "Informe o nome da cerveja.";
     } else if ( form.cervejaNome.length > 200 ) {
-      novosErros.cervejaNome = "O nome deve ter no maximo 200 caracteres.";
+      novosErros.cervejaNome = "O nome deve ter no máximo 200 caracteres.";
     }
 
     if (!form.cervejaEstiloId) {
@@ -140,15 +142,15 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
 
     if (form.cervejaObservacao.length > 2000) {
       novosErros.cervejaObservacao =
-        "A observacao deve ter no maximo 2000 caracteres.";
+        "A observação deve ter no máximo 2000 caracteres.";
     }
 
-    validarNumeroObrigatorio( "temperaturaMin", "Informe a temperatura minima.", novosErros);
-    validarNumeroObrigatorio( "temperaturaMax", "Informe a temperatura maxima.", novosErros );
+    validarNumeroObrigatorio( "temperaturaMin", "Informe a temperatura mínima.", novosErros);
+    validarNumeroObrigatorio( "temperaturaMax", "Informe a temperatura máxima.", novosErros );
     validarNumeroObrigatorio( "phMin", "Informe o pH minimo.", novosErros );
-    validarNumeroObrigatorio( "phMax", "Informe o pH maximo.", novosErros );
+    validarNumeroObrigatorio( "phMax", "Informe o pH máximo.", novosErros );
     validarNumeroObrigatorio( "extratoMin","Informe o extrato minimo.", novosErros );
-    validarNumeroObrigatorio( "extratoMax", "Informe o extrato maximo.", novosErros );
+    validarNumeroObrigatorio( "extratoMax", "Informe o extrato máximo.", novosErros );
 
     setErrors(novosErros);
     return Object.keys(novosErros).length === 0;
@@ -170,6 +172,7 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
     try {
       setSalvando(true);
 
+      // Na edição, remove logicamente os registros antigos antes de criar a nova versão.
       if (cerveja) {
         if (parametroSelecionado) {
           await axios.delete(
@@ -247,7 +250,7 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
           </TextField>
 
           <TextField
-            label="Observacao"
+            label="Observação"
             value={form.cervejaObservacao}
             onChange={(event) =>
               alterarCampo("cervejaObservacao", event.target.value)
@@ -262,12 +265,12 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
 
           <Box sx={{ gridColumn: "1 / -1", border: "1px solid", borderColor: "divider", borderRadius: 1, p: 2, mt: 1, }}>
             <Typography sx={{ color: "#0b3551", fontSize: "0.85rem", fontWeight: 700, mb: 2, }}>
-              Parametros de fermentacao
+              Parâmetros de fermentação
             </Typography>
 
             <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2, }}>
               <TextField
-                label="Temp. min (C)"
+                label="Temp. mín (C)"
                 type="number"
                 value={form.temperaturaMin}
                 onChange={(event) =>
@@ -280,7 +283,7 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
               />
 
               <TextField
-                label="Temp. max (C)"
+                label="Temp. máx (C)"
                 type="number"
                 value={form.temperaturaMax}
                 onChange={(event) =>
@@ -293,7 +296,7 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
               />
 
               <TextField
-                label="pH min"
+                label="pH mín"
                 type="number"
                 value={form.phMin}
                 onChange={(event) => alterarCampo("phMin", event.target.value)}
@@ -304,7 +307,7 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
               />
 
               <TextField
-                label="pH max"
+                label="pH máx"
                 type="number"
                 value={form.phMax}
                 onChange={(event) => alterarCampo("phMax", event.target.value)}
@@ -315,7 +318,7 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
               />
 
               <TextField
-                label="Extrato min (P)"
+                label="Extrato mín (P)"
                 type="number"
                 value={form.extratoMin}
                 onChange={(event) =>
@@ -328,7 +331,7 @@ export default function CervejaCadastroModal({ open, onClose, cerveja, onSuccess
               />
 
               <TextField
-                label="Extrato max (P)"
+                label="Extrato máx (P)"
                 type="number"
                 value={form.extratoMax}
                 onChange={(event) =>

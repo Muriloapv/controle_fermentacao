@@ -4,7 +4,6 @@ import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import type { CervejaParametros } from "../models/CervejaParametros";
-import type { FermentacaoHistorico } from "../models/FermentacaoHistorico";
 
 const columns: GridColDef[] = [
   {
@@ -80,22 +79,11 @@ export default function ParametrosPage() {
   }
 
   function editar(row: any) {
-    console.log("Editar:", row);
+    alert("Para editar algum parametro referente a cerveja, por favor acesse o cadastro da cerveja em questão")
   }
 
   async function excluir(row: any) {
-
-    if (confirm(`Deseja excluir ${row.nome}?`)) {
-      try {
-        await axios.delete<CervejaParametros[]>(
-          "http://localhost:5298/api/cervejaParametro/" + row.cervejaParametroId
-        );
-
-        carregarParametros();       
-      } catch(error){
-        console.error("Erro ao excluir parâmetros", error)
-      }
-    }
+    alert("Para excluir algum parametro referente a cerveja, por favor acesse o cadastro da cerveja em questão")
   }
 
   return (
@@ -106,9 +94,9 @@ export default function ParametrosPage() {
         </Typography>
               
         <Box sx={{ display: "flex", gap: 1 }}>
-          <Button variant="contained" sx={{ backgroundColor: "#FFC524", "&:hover": { backgroundColor: "#e6b020" }, color: "#000" }}>
-            Adicionar parâmetros
-          </Button>
+          <Typography sx={{ fontWeight: 700, fontSize: "1 rem", lineHeight: 1, color: "red", fontStyle: "italic" }}>
+            Para editar acesse diretamente o cadastro da cerveja
+          </Typography>          
         </Box>
       </Box>
 

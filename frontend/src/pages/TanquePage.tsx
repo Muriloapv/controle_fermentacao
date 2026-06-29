@@ -1,5 +1,6 @@
 import type { GridColDef } from "@mui/x-data-grid";
 import AppDataGrid from "../components/DataGrid";
+import TanqueCadastroModal from "../components/TanqueCadastroModal";
 import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -30,6 +31,8 @@ const columns: GridColDef[] = [
 export default function TanquePage() {
   const [rows   , setRows   ] = useState<Tanque[]>([]);
   const [loading, setLoading] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
+  const [tanqueSelecionado, setTanqueSelecionado] = useState<Tanque | null>(null);
 
   useEffect(() => {
     carregarTanques();
@@ -52,7 +55,8 @@ export default function TanquePage() {
   }
 
   function editar(row: Tanque) {
-    console.log("Editar:", row);
+    setTanqueSelecionado(row);
+    setOpenModal(true);
   }
 
   async function excluir(row: Tanque) {
@@ -79,7 +83,14 @@ export default function TanquePage() {
         </Typography>
               
         <Box sx={{ display: "flex", gap: 1 }}>
-          <Button variant="contained" sx={{ backgroundColor: "#FFC524", "&:hover": { backgroundColor: "#e6b020" }, color: "#000" }}>
+          <Button
+            onClick={() => {
+              setTanqueSelecionado(null);
+              setOpenModal(true);
+            }}
+            variant="contained"
+            sx={{ backgroundColor: "#FFC524", "&:hover": { backgroundColor: "#e6b020" }, color: "#000" }}
+          >
             Adicionar tanque
           </Button>
         </Box>
@@ -95,6 +106,16 @@ export default function TanquePage() {
           onDelete={excluir}
         />
       </Box>
+
+      <TanqueCadastroModal
+        open={openModal}
+        tanque={tanqueSelecionado}
+        onClose={() => {
+          setTanqueSelecionado(null);
+          setOpenModal(false);
+        }}
+        onSuccess={carregarTanques}
+      />
     </>
   );
 }

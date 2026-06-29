@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
 
     public AppDbContext(DbContextOptions options) : base(options) { }
 
+    // Aplica filtros globais para ocultar registros com exclusão lógica nas consultas padrão.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Cerveja>().HasQueryFilter         ( c => c.CervejaExclusao          == null);

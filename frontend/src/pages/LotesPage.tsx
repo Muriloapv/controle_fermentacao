@@ -1,6 +1,7 @@
 import type { Lote } from "../models/Lote";
 import type { GridColDef } from "@mui/x-data-grid";
 import AppDataGrid from "../components/DataGrid";
+import LoteCadastroModal from "../components/LoteCadastroModal";
 import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -38,7 +39,7 @@ const columns: GridColDef[] = [
   },
   {
     field: "loteInicio",
-    headerName: "Inicio",
+    headerName: "Início",
     flex: 1
   },
   {
@@ -51,6 +52,8 @@ const columns: GridColDef[] = [
 export default function LotesPage() {
   const [rows, setRows] = useState<Lote[]>([]);
   const [loading, setLoading] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
+  const [loteSelecionado, setLoteSelecionado] = useState<Lote | null>(null);
 
   useEffect(() => {
     carregarLotes();
@@ -73,14 +76,15 @@ export default function LotesPage() {
   }
 
   function editar(row: Lote) {
-    console.log("Editar:", row);
+    setLoteSelecionado(row);
+    setOpenModal(true);
   }
 
   async function excluir(row: Lote) {
     if (confirm(`Deseja excluir ${row.loteDescricao}?`)) {
       try {
         await axios.delete<Lote[]>(
-          "http://localhost:5298/api/lote" + row.loteId
+          "http://localhost:5298/api/lote/" + row.loteId
         )
 
         carregarLotes();
@@ -98,7 +102,14 @@ export default function LotesPage() {
         </Typography>
               
         <Box sx={{ display: "flex", gap: 1 }}>
-          <Button variant="contained" sx={{ backgroundColor: "#FFC524", "&:hover": { backgroundColor: "#e6b020" }, color: "#000" }}>
+          <Button
+            onClick={() => {
+              setLoteSelecionado(null);
+              setOpenModal(true);
+            }}
+            variant="contained"
+            sx={{ backgroundColor: "#FFC524", "&:hover": { backgroundColor: "#e6b020" }, color: "#000" }}
+          >
             Adicionar lote
           </Button>
         </Box>
@@ -114,6 +125,16 @@ export default function LotesPage() {
           onDelete={excluir}
         />
       </Box>
+
+      <LoteCadastroModal
+        open={openModal}
+        lote={loteSelecionado}
+        onClose={() => {
+          setLoteSelecionado(null);
+          setOpenModal(false);
+        }}
+        onSuccess={carregarLotes}
+      />
     </>
   );  
 }

@@ -25,6 +25,7 @@ export default function CervejaEstiloCadastroModal({ open, onClose, estilo, onSu
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [salvando, setSalvando] = useState(false);
 
+  // Mantém o mesmo modal para cadastro e edição, preenchendo o formulário quando houver estilo selecionado.
   useEffect(() => {
     if (open && estilo) {
       setForm({
@@ -89,6 +90,7 @@ export default function CervejaEstiloCadastroModal({ open, onClose, estilo, onSu
     try {
       setSalvando(true);
 
+      // Edição segue o padrão de histórico: exclui logicamente o registro atual e cria um novo.
       if (estilo) {
         await axios.delete(
           'http://localhost:5298/api/CervejaEstilo/' + estilo.cervejaEstiloId
